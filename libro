@@ -1,0 +1,40 @@
+class Libro:
+    def __init__(self, titolo, autore, pagine):
+        self.titolo = titolo
+        self.autore = autore
+        self.pagine = pagine
+
+    def __str__(self):
+        return self.titolo + ", " + self.autore + ", " + str(self.pagine) + " pagine"
+
+
+class Biblioteca:
+    def __init__(self):
+        self.libri = []
+
+    def aggiungi_libro(self, libro):
+        self.libri.append(libro)
+
+    def salva_su_file(self, nome_file="libro.txt"):
+        file = open(nome_file, "w")
+        for libro in self.libri:
+            file.write(libro.titolo + ", " + libro.autore + ", " + str(libro.pagine) + " pagine\n")
+        file.close()
+        print("Informazioni dei libri salvate con successo in '" + nome_file + "'.")
+
+    def input_libro(self):
+        titolo = input("Inserisci il titolo del libro: ")
+        autore = input("Inserisci l'autore del libro: ")
+        pagine = input("Inserisci il numero di pagine del libro: ")
+        libro = Libro(titolo, autore, pagine)
+        self.aggiungi_libro(libro)
+
+biblioteca = Biblioteca()
+
+while True:
+    biblioteca.input_libro()
+    continua = input("Vuoi aggiungere un altro libro? (s/n): ").strip().lower()
+    if continua != 's':
+        break
+
+biblioteca.salva_su_file()
